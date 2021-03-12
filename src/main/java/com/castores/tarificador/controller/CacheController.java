@@ -7,16 +7,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-//@RestController
-//@RequestMapping("api/v1/caches")
+@RestController
+@RequestMapping("api/v1/caches")
 public class CacheController {
 	
-	/**@Autowired
+	@Autowired
 	private CacheManager cacheManager;
 
 	@PatchMapping("/{name}")
 	public void evictCache(@PathVariable String name) {
 		this.cacheManager.getCache(name).clear();
-	}*/
+	}
+
 
 }
