@@ -1,4 +1,4 @@
-package com.test.tarificador.controller.config;
+package com.castores.tarificador.controller.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

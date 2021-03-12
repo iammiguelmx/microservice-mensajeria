@@ -1,9 +1,9 @@
-package com.test.tarificador.repository;
+package com.castores.tarificador.repository;
 
 import java.util.Map;
 
-import com.test.tarificador.entities.Convenio;
-import com.test.tarificador.entities.Mensajeria;
+import com.castores.tarificador.entities.Convenio;
+import com.castores.tarificador.entities.Mensajeria;
 
 public interface IRateRepository {
 

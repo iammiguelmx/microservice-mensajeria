@@ -1,4 +1,4 @@
-package com.test.tarificador.entities;
+package com.castores.tarificador.entities;
 
 import java.io.Serializable;
 

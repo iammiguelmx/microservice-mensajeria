@@ -1,9 +1,10 @@
-package com.test.tarificador.repository.impl;
+package com.castores.tarificador.repository.impl;
 
 import com.castores.tarificador.control.Facturacion;
-import com.test.tarificador.entities.Mensajeria;
-import com.test.tarificador.entities.Convenio;
-import com.test.tarificador.repository.IRateRepository;
+import com.castores.tarificador.entities.Convenio;
+import com.castores.tarificador.entities.Mensajeria;
+import com.castores.tarificador.repository.IRateRepository;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;

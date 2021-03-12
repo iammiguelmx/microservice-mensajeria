@@ -1,4 +1,4 @@
-package com.test.tarificador;
+package com.castores.tarificador;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

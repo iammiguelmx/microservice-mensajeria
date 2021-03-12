@@ -1,4 +1,4 @@
-package com.test.tarificador.controller.config;
+package com.castores.tarificador.controller.config;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;

@@ -1,9 +1,9 @@
-package com.test.tarificador.service;
+package com.castores.tarificador.service;
 
 import java.util.Map;
 
-import com.test.tarificador.entities.Convenio;
-import com.test.tarificador.entities.Mensajeria;
+import com.castores.tarificador.entities.Convenio;
+import com.castores.tarificador.entities.Mensajeria;
 
 public interface IRateService {
 

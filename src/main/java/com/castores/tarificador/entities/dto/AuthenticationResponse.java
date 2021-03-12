@@ -1,4 +1,4 @@
-package com.test.tarificador.entities.dto;
+package com.castores.tarificador.entities.dto;
 
 import java.io.Serializable;
 import lombok.Data;
