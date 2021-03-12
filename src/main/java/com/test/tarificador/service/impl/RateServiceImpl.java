@@ -1,11 +1,13 @@
 package com.test.tarificador.service.impl;
 
+import com.test.tarificador.controller.config.CacheConfig;
 import com.test.tarificador.entities.Convenio;
 import com.test.tarificador.entities.Mensajeria;
 import com.test.tarificador.repository.IRateRepository;
 import com.test.tarificador.service.IRateService;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +16,7 @@ public class RateServiceImpl implements IRateService {
     @Autowired
     private IRateRepository repository;
 
+    @Cacheable(cacheNames = CacheConfig.USER_CACHE, key = "#mensajeria", unless = "#result == null")
     @Override
     public String cotizarPaqueteria(Mensajeria mensajeria) {
         return repository.cotizarPaqueteria(mensajeria);

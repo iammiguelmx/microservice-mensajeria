@@ -3,6 +3,7 @@ package com.test.tarificador;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * @author Miguel Angel Camacho Campos
@@ -10,6 +11,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  * @fecha 02 feb. 2021
  *
  */
+
+@EnableCaching
 @EnableEurekaClient
 @SpringBootApplication
 public class Application {
