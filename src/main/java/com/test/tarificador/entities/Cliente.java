@@ -41,13 +41,13 @@ public class Cliente extends Origen implements Serializable {
     
     
     private String street;
-    private String ext_number;
-    private String int_number;
+    private String extNumber;
+    private String intNumber;
     private String district;
     private String city;
     private String state;
     private String country;
-    private String postal_code;
+    private String postalCode;
     private String reference;
 
 }

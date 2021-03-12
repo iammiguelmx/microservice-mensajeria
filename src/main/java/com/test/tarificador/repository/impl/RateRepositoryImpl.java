@@ -49,11 +49,6 @@ public class RateRepositoryImpl implements IRateRepository {
      */
     @Override
     public String cotizarPaqueteria(Mensajeria mensajeria) {
-    	//Obtener el idCliente
-    	//Integer idcliente = obtenerIdCliente(mensajeria.getOrigen().getCompany());
-    	
-    	//System.out.print(idcliente);
-    	
     	Double toneladas=(mensajeria.getPackages().getPeso())/1000;
     	Double mst3=(mensajeria.getPackages().getAlto()*mensajeria.getPackages().getAncho()*mensajeria.getPackages().getLargo())/1000;
     	String cadenaContenido =  mensajeria.getPackages().getCantidad()+"<>"+mensajeria.getPackages().getIdEmpaque()+"<>"+
@@ -95,9 +90,9 @@ public class RateRepositoryImpl implements IRateRepository {
 	 */
 	@Override
 	public Map convertStringToMap(String s) {
-        List<String> auxList = new ArrayList<String>(Arrays.asList(s.split(",")));
+        List<String> auxList = new ArrayList<>(Arrays.asList(s.split(",")));
         List<Double> listDouble = auxList.stream().map(a -> Double.parseDouble(a)).collect(Collectors.toList());	
-        Map<String,Double> map=new HashMap<String,Double>();
+        Map<String,Double> map=new HashMap<>();
         map.put("Flete",listDouble.get(0));
         map.put("Seguro",listDouble.get(1));
         map.put("IVA",listDouble.get(11));
@@ -112,17 +107,17 @@ public class RateRepositoryImpl implements IRateRepository {
 	        Convenio convenio =new Convenio();
 	        SqlRowSet rs = null; //Objeto en el cual se regresa la respuesta
 	        try {
-	            String Query
+	            String query
 	               ="SELECT idconvenio,versionconv FROM clientes.convenios_tyc  "
 	                    + "WHERE idcliente="+idCliente+" AND idoficinacliente="+idIficina+" AND estatus IN (1,9);";
-	            rs = jdbcTemplate.queryForRowSet(Query);
+	            rs = jdbcTemplate.queryForRowSet(query);
 	            while (rs.next()) {
 	                //Asignamos al objeto sus datos correspondientes
 	              convenio.setIdConvenio(rs.getString(1));
 	              convenio.setVersionConvenio(rs.getString(2));
 	            }
 	        } catch (Exception e) {
-	            System.out.println(e);
+	            
 	        }
 	        return convenio;
 	 }

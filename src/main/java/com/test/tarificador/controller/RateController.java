@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.test.tarificador.entities.dto.DataResponse;
 import com.test.tarificador.service.IRateService;
 import io.swagger.annotations.Api;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/mensajeria")
 @Api(tags = "Rate")
@@ -59,10 +61,10 @@ public class RateController {
         	}
 	            //From 
 	            to.setCity(mensajeria.getOrigen().getCity());
-	            to.setPostalCode(mensajeria.getOrigen().getPostal_code());
+	            to.setPostalCode(mensajeria.getOrigen().getPostalCode());
 	            //To
 	            from.setCity(mensajeria.getDestino().getCity());
-	            from.setPostalCode(mensajeria.getDestino().getPostal_code());
+	            from.setPostalCode(mensajeria.getDestino().getPostalCode());
 	            
 
 	            mapData.put("from", from);
