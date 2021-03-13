@@ -40,6 +40,7 @@ public class Paquete implements Serializable {
      * Peso en Kilogramos. (Posteriomente hace la conversion a toneldas)
      */
     @Positive(message = "El peso del paquete debe de ser mayor a 0.")
+    @Range(min=1, max=10, message = "El peso no debe de exceder los 10 Kilogramos")
     private Double peso;
     
     /**

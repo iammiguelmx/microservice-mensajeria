@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RateServiceImpl implements IRateService {
@@ -17,15 +18,15 @@ public class RateServiceImpl implements IRateService {
     @Autowired
     private IRateRepository repository;
 
-    //key="{#bar.name, #bar.id}"
     @Cacheable(cacheNames = CacheConfig.USER_CACHE, 
     		 condition = "#mensajeria != null")
     @Override
     public String cotizarPaqueteria(Mensajeria mensajeria) {
         return repository.cotizarPaqueteria(mensajeria);
     }
-
+    
     @Override
+    @Transactional(readOnly = true)
     public Double tieneCredito(Integer idCliente, Integer idOficina) {
         return repository.tieneCredito(idCliente,idOficina);
     }
@@ -41,6 +42,7 @@ public class RateServiceImpl implements IRateService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Convenio getConvenio(Integer idCliente, Integer idIficina) {
 		return repository.getConvenio(idCliente, idIficina);
 	}
