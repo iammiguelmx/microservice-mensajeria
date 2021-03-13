@@ -6,17 +6,17 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.castores.tarificador.entities.Mensajeria;
 import com.castores.tarificador.entities.dto.DataResponse;
 import com.castores.tarificador.service.IRateService;
-
 import io.swagger.annotations.Api;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/mensajeria")
 @Api(tags = "Rate")
@@ -32,6 +32,7 @@ public class RateController {
     @Autowired
     private IRateService iRateService;
 
+   
     @PostMapping("/cotizar")
     public ResponseEntity<?> paqueteria(@Valid @RequestBody Mensajeria mensajeria) {
     	Map<String, Object> params = new HashMap<>();

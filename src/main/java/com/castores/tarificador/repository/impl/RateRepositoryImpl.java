@@ -64,8 +64,9 @@ public class RateRepositoryImpl implements IRateRepository {
                 String.valueOf(mensajeria.getAdditionalServices().getValorDeclarado()),
                 "16.00","1", "1","false",cadenaContenido,
                 convenio.getIdConvenio(), convenio.getVersionConvenio(), "false",
-                "0","true",mensajeria.getOrigen().getIdCliente(), mensajeria.getOrigen().getIdOficina(),
+                "0","true",mensajeria.getOrigen().getIdCliente(), mensajeria.getDestino().getIdOficina(),
                 "0","0", "0", "false", "1", "1104","false", "0","8","0");
+    	
     }
 
 

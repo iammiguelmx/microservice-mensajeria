@@ -29,7 +29,7 @@ public class SwaggerConfig {
                                                 .reference("JWT")
                                                 .scopes(new AuthorizationScope[0])
                                                 .build())).build())).select()
-                .apis(RequestHandlerSelectors.basePackage("com.test.tarificador")).build();
+                .apis(RequestHandlerSelectors.basePackage("com.castores.tarificador")).build();
     }
 
 }

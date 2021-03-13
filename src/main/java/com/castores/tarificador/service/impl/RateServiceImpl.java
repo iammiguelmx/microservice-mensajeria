@@ -17,7 +17,9 @@ public class RateServiceImpl implements IRateService {
     @Autowired
     private IRateRepository repository;
 
-    @Cacheable(cacheNames = CacheConfig.USER_CACHE, key = "#mensajeria", unless = "#result == null")
+    //key="{#bar.name, #bar.id}"
+    @Cacheable(cacheNames = CacheConfig.USER_CACHE, 
+    		 condition = "#mensajeria != null")
     @Override
     public String cotizarPaqueteria(Mensajeria mensajeria) {
         return repository.cotizarPaqueteria(mensajeria);

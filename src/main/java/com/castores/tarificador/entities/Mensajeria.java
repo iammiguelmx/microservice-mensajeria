@@ -1,12 +1,16 @@
 package com.castores.tarificador.entities;
 
 import lombok.Data;
+
+
 import javax.persistence.Embedded;
 import javax.validation.Valid;
 
-
+import org.springframework.cache.annotation.Cacheable;
 import java.io.Serializable;
 
+
+@Cacheable(value = "mensajeria")
 @Data
 public class Mensajeria implements Serializable {
 
