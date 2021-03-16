@@ -15,11 +15,13 @@ import com.castores.tarificador.entities.Mensajeria;
 import com.castores.tarificador.entities.dto.DataResponse;
 import com.castores.tarificador.service.IRateService;
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/mensajeria")
 @Api(tags = "Rate")
+@Slf4j
 /**
  * Endpoints: 
  * test: http://localhost:8080/api/cotizar/mensajeria
@@ -44,13 +46,16 @@ public class RateController {
         
         //Si regresa 0.0 no se encontro un registro de este cliente con un credito
         Double saldoCredito=iRateService.tieneCredito(Integer.parseInt(mensajeria.getOrigen().getIdCliente()),Integer.parseInt(mensajeria.getOrigen().getIdOficina()));
+        log.info("tieneCredito: ->" + saldoCredito);
         
         //Validate paqueteID mensajería.
         boolean isValid = iRateService.validatePaqueteId(mensajeria.getPackages().getIdEmpaque()); 
+        log.info("validatePaqueteId: ->" + isValid);
         
         //No soberpasa las dimensiones de mensajeria
         boolean dimensionesMensajeria =  iRateService.validaDimensiones(mensajeria.getPackages().getAlto(),mensajeria.getPackages().getAncho(),mensajeria.getPackages().getLargo());
-       
+        log.info("dimensionesMensajeria: ->" + dimensionesMensajeria);
+        
         if (isValid && dimensionesMensajeria && saldoCredito!= 0.0) {
         	try {
 	            importes = iRateService.cotizarPaqueteria(mensajeria);
