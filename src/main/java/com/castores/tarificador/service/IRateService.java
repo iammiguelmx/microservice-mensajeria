@@ -34,7 +34,7 @@ public interface IRateService {
      * @param s
      * @return
      */
-     Map convertStringToMap(String s);
+     Map<String,Double> convertStringToMap(String s);
   
      
      /**

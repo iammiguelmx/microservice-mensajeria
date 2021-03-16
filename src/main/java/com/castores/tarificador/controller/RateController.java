@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.castores.tarificador.entities.Mensajeria;
+import com.castores.tarificador.entities.Paquete;
 import com.castores.tarificador.entities.dto.DataResponse;
 import com.castores.tarificador.service.IRateService;
 import io.swagger.annotations.Api;
@@ -34,15 +35,15 @@ public class RateController {
     @Autowired
     private IRateService iRateService;
 
-   
-    @PostMapping("/cotizar")
-    public ResponseEntity<?> paqueteria(@Valid @RequestBody Mensajeria mensajeria) {
+	@PostMapping("/cotizar")
+    public ResponseEntity<Map<String,Object>> paqueteria(@Valid @RequestBody Mensajeria mensajeria) {
     	Map<String, Object> params = new HashMap<>();
     	DataResponse to = new DataResponse();
     	DataResponse from = new DataResponse();	
+    	Paquete packageDetails = new Paquete();
         String importes=null;
-        Map  mapFrom, mapError, mapData = new HashMap<String,String>();
-        Map mapImportes = new HashMap<String,Double>();
+        Map<String,Object>  mapData = new HashMap<>();
+        Map<String,Double> mapImportes;
         
         //Si regresa 0.0 no se encontro un registro de este cliente con un credito
         Double saldoCredito=iRateService.tieneCredito(Integer.parseInt(mensajeria.getOrigen().getIdCliente()),Integer.parseInt(mensajeria.getOrigen().getIdOficina()));
@@ -52,7 +53,7 @@ public class RateController {
         boolean isValid = iRateService.validatePaqueteId(mensajeria.getPackages().getIdEmpaque()); 
         log.info("validatePaqueteId: ->" + isValid);
         
-        //No soberpasa las dimensiones de mensajeria
+        //No sobrepasa las dimensiones de mensajeria
         boolean dimensionesMensajeria =  iRateService.validaDimensiones(mensajeria.getPackages().getAlto(),mensajeria.getPackages().getAncho(),mensajeria.getPackages().getLargo());
         log.info("dimensionesMensajeria: ->" + dimensionesMensajeria);
         
@@ -66,16 +67,25 @@ public class RateController {
     			return new ResponseEntity<>(params, HttpStatus.INTERNAL_SERVER_ERROR);
         	}
 	            //From 
-	            to.setCity(mensajeria.getOrigen().getCity());
+	            to.setCountry(mensajeria.getOrigen().getCountry());
 	            to.setPostalCode(mensajeria.getOrigen().getPostalCode());
+
 	            //To
-	            from.setCity(mensajeria.getDestino().getCity());
+	            from.setCountry(mensajeria.getDestino().getCountry());
 	            from.setPostalCode(mensajeria.getDestino().getPostalCode());
 	            
-
+	            //package_details
+	            packageDetails.setContenido(mensajeria.getPackages().getContenido());
+	            packageDetails.setIdEmpaque(mensajeria.getPackages().getIdEmpaque());
+	            packageDetails.setAlto(mensajeria.getPackages().getAlto());
+	            packageDetails.setAncho(mensajeria.getPackages().getAncho());
+	            packageDetails.setLargo(mensajeria.getPackages().getLargo());
+	            
+	            
 	            mapData.put("from", from);
 	            mapData.put("to", to);
 	            mapData.put("rate_details", mapImportes);
+	            mapData.put("package_details", packageDetails);
         } else {
         	//Response with entity error.
         	if (!isValid) {
@@ -92,7 +102,7 @@ public class RateController {
     			return new ResponseEntity<>(params, HttpStatus.BAD_REQUEST);
         	}
         }
-        return new ResponseEntity(mapData,HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(mapData,HttpStatus.OK);
     }
 
 }

@@ -4,7 +4,7 @@ import com.castores.tarificador.control.Facturacion;
 import com.castores.tarificador.entities.Convenio;
 import com.castores.tarificador.entities.Mensajeria;
 import com.castores.tarificador.repository.IRateRepository;
-
+import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,6 +18,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+@Slf4j
 @Repository
 public class RateRepositoryImpl implements IRateRepository {
 	
@@ -37,7 +38,7 @@ public class RateRepositoryImpl implements IRateRepository {
 	private Double valorDimensionesMensajeria;
 	
 	@Value("${valores.paquetes.mensajeria.ids}")
-	private int idPaquetesMensajeria[];
+	private int[] idPaquetesMensajeria;
 	
 	@Value("${query.tarificador.getIdClienteOrigen}")
 	private String obteneridClienteOrigen;
@@ -54,10 +55,8 @@ public class RateRepositoryImpl implements IRateRepository {
     	Double mst3=(mensajeria.getPackages().getAlto()*mensajeria.getPackages().getAncho()*mensajeria.getPackages().getLargo())/1000;
     	String cadenaContenido =  mensajeria.getPackages().getCantidad()+"<>"+mensajeria.getPackages().getIdEmpaque()+"<>"+
         		mensajeria.getPackages().getContenido()+"<>"+toneladas+"<>0.0010<>";
-    	Convenio convenio =new Convenio();
-    	convenio = getConvenio(Integer.parseInt(mensajeria.getOrigen().getIdCliente()),Integer.parseInt(mensajeria.getOrigen().getIdOficina()));
+    	Convenio convenio = getConvenio(Integer.parseInt(mensajeria.getOrigen().getIdCliente()),Integer.parseInt(mensajeria.getOrigen().getIdOficina()));
     	
-  
         return Facturacion.obtieneTarifas(
         		mensajeria.getOrigen().getId(),
                 mensajeria.getDestino().getId(),
@@ -82,8 +81,7 @@ public class RateRepositoryImpl implements IRateRepository {
 
 	@Override
 	public boolean validatePaqueteId(Integer paqueteId) {
-		boolean contains = Arrays.stream(idPaquetesMensajeria).anyMatch(paqueteId::equals);
-		return contains;
+		return Arrays.stream(idPaquetesMensajeria).anyMatch(paqueteId::equals);
 	}
 
 	/**
@@ -91,7 +89,7 @@ public class RateRepositoryImpl implements IRateRepository {
 	 * Convierte de List<String> a List<Double>
 	 */
 	@Override
-	public Map convertStringToMap(String s) {
+	public Map<String,Double> convertStringToMap(String s) {
         List<String> auxList = new ArrayList<>(Arrays.asList(s.split(",")));
         List<Double> listDouble = auxList.stream().map(a -> Double.parseDouble(a)).collect(Collectors.toList());	
         Map<String,Double> map=new HashMap<>();
@@ -119,7 +117,7 @@ public class RateRepositoryImpl implements IRateRepository {
 	              convenio.setVersionConvenio(rs.getString(2));
 	            }
 	        } catch (Exception e) {
-	            
+	            log.error(e.getMessage());
 	        }
 	        return convenio;
 	 }

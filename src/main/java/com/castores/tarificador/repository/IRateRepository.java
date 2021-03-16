@@ -34,7 +34,7 @@ public interface IRateRepository {
      * @param s
      * @return
      */
-     Map convertStringToMap(String s);
+     Map<String,Double> convertStringToMap(String s);
   
      
      /**

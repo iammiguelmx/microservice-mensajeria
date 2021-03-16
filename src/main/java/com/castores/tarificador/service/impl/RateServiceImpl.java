@@ -37,7 +37,7 @@ public class RateServiceImpl implements IRateService {
 	}
 
 	@Override
-	public Map convertStringToMap(String s) {
+	public Map<String,Double> convertStringToMap(String s) {
 		return repository.convertStringToMap(s);
 	}
 

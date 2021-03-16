@@ -16,7 +16,7 @@ public class CacheController {
 
 	@PatchMapping("/{name}")
 	public void evictCache(@PathVariable String name) {
-		this.cacheManager.getCache(name).clear();
+		cacheManager.getCache(name).clear();
 	}
 
 
